@@ -8,7 +8,7 @@ describe "Navigating movies" do
 
     click_link "All Movies"
 
-    expect(current_path).to eq(root_path)
+    expect(current_path).to eq(movies_path)
   end
 
   it "allows navigation from the listing page to the detail page" do

@@ -35,16 +35,14 @@ describe "Viewing the list of movies" do
 
     visit movies_url
 
-    expect(page).to have_text("3 Movies")
     expect(page).to have_text(movie1.title)
     expect(page).to have_text(movie2.title)
     expect(page).to have_text(movie3.title)
     expect(page).to have_text(movie1.rating)
     expect(page).to have_text(movie1.description[0..9])
-    expect(page).to have_text(movie1.released_on)
+    expect(page).to have_text(movie1.released_on.year)
     expect(page).to have_text("$318,412,101.00")
     expect(page).to have_text(movie1.cast)
-    expect(page).to have_text(movie1.director)
     expect(page).to have_text(movie1.duration)
     expect(page).to have_css("img[alt*='Ironman']")
   end
