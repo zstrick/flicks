@@ -7,19 +7,31 @@ describe "Viewing the list of movies" do
                           rating: "PG-13",
                           total_gross: 318412101.00,
                           description: "Tony Stark builds an armored suit to fight the throes of evil",
-                          released_on: "2008-05-02")
+                          released_on: "2008-05-02",
+                          cast: "Robert Downey Jr., Gwyneth Paltrow and Terrence Howard",
+                          director: "Jon Favreau",
+                          duration: "126 min",
+                          image_file_name: "ironman.jpg")
 
     movie2 = Movie.create(title: "Superman",
                           rating: "PG",
                           total_gross: 134218018.00,
                           description: "Clark Kent grows up to be the greatest super-hero",
-                          released_on: "1978-12-15")
+                          released_on: "1978-12-15",
+                          cast: "The cast",
+                          director: "Super Director",
+                          duration: "126 min",
+                          image_file_name: "superman.jpg")
 
     movie3 = Movie.create(title: "Spider-Man",
                           rating: "PG-13",
                           total_gross: 403706375.00,
                           description: "Peter Parker gets bit by a genetically modified spider",
-                          released_on: "2002-05-03")
+                          released_on: "2002-05-03",
+                          cast: "The spider cast",
+                          director: "Spider Director",
+                          duration: "126 min",
+                          image_file_name: "spiderman.jpg")
 
     visit movies_url
 
@@ -31,6 +43,10 @@ describe "Viewing the list of movies" do
     expect(page).to have_text(movie1.description[0..9])
     expect(page).to have_text(movie1.released_on)
     expect(page).to have_text("$318,412,101.00")
+    expect(page).to have_text(movie1.cast)
+    expect(page).to have_text(movie1.director)
+    expect(page).to have_text(movie1.duration)
+    expect(page).to have_css("img[alt*='Ironman']")
   end
 
   it "does not show a movie that hasn't yet been released" do
@@ -39,5 +55,25 @@ describe "Viewing the list of movies" do
     visit movies_path
 
     expect(page).not_to have_text(movie.title)
+  end
+
+  it "is released when the released on date is in the past" do
+    movie = Movie.create(movie_attributes(released_on: 3.months.ago))
+
+    expect(Movie.released).to include(movie)
+  end
+
+  it "is not released when the released on date is in the future" do
+    movie = Movie.create(movie_attributes(released_on: 3.months.from_now))
+
+    expect(Movie.released).not_to include(movie)
+  end
+
+  it "returns released movies ordered with the most recently-released movie first" do
+    movie1 = Movie.create(movie_attributes(released_on: 3.months.ago))
+    movie2 = Movie.create(movie_attributes(released_on: 2.months.ago))
+    movie3 = Movie.create(movie_attributes(released_on: 1.months.ago))
+
+    expect(Movie.released).to eq([movie3, movie2, movie1])
   end
 end
