@@ -10,6 +10,14 @@ describe "A user" do
     expect(user.errors[:name].any?).to eq(true)
   end
 
+  it "requires a username" do
+    user = User.new(username: "")
+
+    user.valid? # populates errors
+
+    expect(user.errors[:username].any?).to eq(true)
+  end
+
   it "requires an email" do
     user = User.new(email: "")
 
@@ -42,6 +50,26 @@ describe "A user" do
     user2 = User.new(email: user1.email.upcase)
     user2.valid?
     expect(user2.errors[:email].first).to eq("has already been taken")
+  end
+
+  it "requires a unique, case insensitive username" do
+    user1 = User.create!(user_attributes)
+
+    user2 = User.new(username: user1.username.upcase)
+    user2.valid?
+    expect(user2.errors[:username].first).to eq("has already been taken")
+  end
+
+  it "requires an alphanumeric username" do
+    valid_username = "user123"
+    invalid_username = "user@!!!&"
+
+    user = User.new(username: invalid_username)
+    user.valid?
+    expect(user.errors[:username].any?).to eq(true)
+    user.username = valid_username
+    user.valid?
+    expect(user.errors[:username].any?).to eq(false)
   end
 
   it "is valid with example attributes" do
