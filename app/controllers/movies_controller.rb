@@ -1,4 +1,6 @@
 class MoviesController < ApplicationController
+  before_action :require_signin, except: [:index, :show]
+  before_action :require_admin, except: [:index, :show]
   before_action :set_movie, only: [:show, :edit, :update, :destroy]
 
   def index
