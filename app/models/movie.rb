@@ -1,4 +1,6 @@
 class Movie < ApplicationRecord
+  has_many :reviews, dependent: :destroy
+
   RATINGS = %w(G PG PG-13 R NC-17)
 
   validates :title, :released_on, :duration, presence: true
@@ -9,8 +11,6 @@ class Movie < ApplicationRecord
     message: "must reference a GIF, JPG, or PNG image"
   }
   validates :rating, inclusion: { in: RATINGS }
-
-  has_many :reviews, dependent: :destroy
 
   def flop?
     total_gross.blank? || total_gross < 50000000
