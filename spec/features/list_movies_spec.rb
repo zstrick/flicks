@@ -69,8 +69,8 @@ describe "Viewing the list of movies" do
 
   it "returns released movies ordered with the most recently-released movie first" do
     movie1 = Movie.create(movie_attributes(released_on: 3.months.ago))
-    movie2 = Movie.create(movie_attributes(released_on: 2.months.ago))
-    movie3 = Movie.create(movie_attributes(released_on: 1.months.ago))
+    movie2 = Movie.create(movie_attributes(title: "Batman", released_on: 2.months.ago))
+    movie3 = Movie.create(movie_attributes(title: "Superman", released_on: 1.months.ago))
 
     expect(Movie.released).to eq([movie3, movie2, movie1])
   end

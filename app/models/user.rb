@@ -12,6 +12,8 @@ class User < ApplicationRecord
                        format: /\A[A-Z0-9]+\z/i,
                        uniqueness: { case_sensitive: false }
 
+  before_save :format_username, :format_email
+
   def gravatar_id
     Digest::MD5::hexdigest(email.downcase)
   end
@@ -19,5 +21,13 @@ class User < ApplicationRecord
   def self.authenticate(email_or_username, password)
     user = User.find_by(email: email_or_username) || User.find_by(username: email_or_username)
     user && user.authenticate(password)
+  end
+
+  def format_username
+    self.username = username.downcase
+  end
+
+  def format_email
+    self.email = email.downcase
   end
 end
