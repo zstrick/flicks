@@ -9,9 +9,9 @@ module MoviesHelper
 
   def image_for(movie)
     if movie.image_file_name.blank?
-      image_tag 'placeholder.png'
+      image_tag 'placeholder.png', class: "img-thumbnail float-left mr-3 mb-3"
     else
-      image_tag movie.image_file_name
+      image_tag movie.image_file_name, class: "img-thumbnail float-left mr-3 mb-3"
     end
   end
 end

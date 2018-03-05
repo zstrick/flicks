@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title><%= page_title %></title>
     <%= csrf_meta_tags %>
 
@@ -10,20 +12,16 @@
 
   <body>
     <%= render "layouts/header" %>
-
-    <div id="wrapper">
+    <div class="container">
       <%= render 'layouts/flashes' %>
-      <div id="container">
-        <section id="sidebar">
-          <%= render "layouts/sidebar" %>
-        </section>
-        <section id="content">
-          <%= yield %>
-        </section>
-      </div>
-
+      <section>
+        <%= render "layouts/sidebar" %>
+      </section>
+      <section>
+        <%= yield %>
+      </section>
+      <hr>
+      <%= render "layouts/footer" %>
     </div>
-
-    <%= render "layouts/footer" %>
   </body>
 </html>

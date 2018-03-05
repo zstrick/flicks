@@ -1,24 +1,25 @@
-<header id="content-header">
-  <h1>Sign In</h1>
-</header>
+<div class="row">
+  <div class="col-6">
+    <header>
+      <h1>Sign In</h1>
+    </header>
 
-<%= form_tag(session_path) do %>
-  <fieldset>
-    <ol>
-      <li class="required">
-        <%= label_tag :email_or_username %>
-        <%= text_field_tag :email_or_username, nil, autofocus: true, required: true %>
-      </li>
-      <li class="required">
-        <%= label_tag :password %>
-        <%= password_field_tag :password, nil, required: true %>
-      </li>
-    </ol>
-    <p>
-      <%= submit_tag "Sign In" %>
-    </p>
-    <p>
-      No account yet? <%= link_to 'Sign up!', signup_path %>
-    </p>
-  </fieldset>
-<% end %>
+    <%= form_tag(session_path) do %>
+        <div class="form-group">
+          <%= label_tag :email_or_username %>
+          <%= text_field_tag :email_or_username, nil, autofocus: true, required: true, class: "form-control" %>
+        </div>
+        <div class="form-group">
+          <%= label_tag :password %>
+          <%= password_field_tag :password, nil, required: true, class: "form-control" %>
+        </div>
+        <p>
+          <%= submit_tag "Sign In", class: "btn btn-primary" %>
+        </p>
+        <p>
+          No account yet? <%= link_to 'Sign up!', signup_path %>
+        </p>
+
+    <% end %>
+  </div>
+</div>

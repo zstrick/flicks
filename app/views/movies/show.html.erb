@@ -1,86 +1,99 @@
-<% content_for(:title, @movie.title) %>
-<article id="movie" class="movie">
-  <header>
-    <%= image_for(@movie) %>
-    <h1><%= @movie.title %></h1>
-    <h2>Released: <%= @movie.released_on %></h2>
-  </header>
+<div class="row">
+  <div class="col-8">
+    <% content_for(:title, @movie.title) %>
+    <article>
+      <header>
+        <%= image_for(@movie) %>
+        <h1><%= @movie.title %></h1>
+        <h4>Released: <%= @movie.released_on %></h4>
+      </header>
 
-  <p>
-    <%= @movie.description %>
-  </p>
+      <p>
+        <%= @movie.description %>
+      </p>
 
-  <% content_for(:side) do %>
-    <% if @genres.any? %>
-      <h3>Genres</h3>
-      <ul>
-        <% @genres.each do |genre| %>
-          <li><%= genre.name %></li>
+      <% content_for(:side) do %>
+        <% if @genres.any? %>
+          <div class="card mt-3">
+            <h6 class="card-header">Genres</h6>
+            <div class="card-body">
+              <ul class="list-unstyled">
+                <% @genres.each do |genre| %>
+                  <li><%= genre.name %></li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
         <% end %>
-      </ul>
-    <% end %>
-  <% end %>
-
-  <h3 class="no-rule">
-    <%= @movie.rating %> &bull; <%= @movie.duration %>
-  </h3>
-
-  <p>
-    <%= pluralize(@fans.size, "fan")%>
-  </p>
-
-  <% if current_user %>
-    <% if @current_favorite %>
-      <%= button_to "Unfave", movie_favorite_path(@movie, @current_favorite), method: :delete, class: "button unfave" %>
-    <% else %>
-      <%= button_to "Fave", movie_favorites_path(@movie), class: "button fave" %>
-    <% end %>
-  <% end %>
-
-  <% content_for(:side) do %>
-    <% if @fans.any? %>
-      <h3>Fans</h3>
-      <ul>
-        <% @fans.each do |fan| %>
-          <li>
-            <%= link_to fan.name, fan %>
-          </li>
-        <% end %>
-      </ul>
-    <% end %>
-  <% end %>
-
-  <h3>Cast</h3>
-  <p>
-    <%= @movie.cast %>
-  </p>
-
-  <h3>Director</h3>
-  <p>
-    <%= @movie.director %>
-  </p>
-
-  <h3>Total Gross</h3>
-  <p>
-    <%= format_total_gross(@movie) %>
-  </p>
-
-  <h3>Average Review</h3>
-  <p>
-    <%= format_average_stars(@movie) %>
-  </p>
-  <p>
-    <%= link_to pluralize(@movie.reviews.size, "Review"), movie_reviews_path(@movie) %>
-  </p>
-  <footer>
-    <%= link_to "Write Review", new_movie_review_path(@movie), class: "button ok review" %>
-    <nav>
-      <% if current_user_admin? %>
-        <%= link_to 'Edit', edit_movie_path(@movie), class: 'button' %>
-        <%= link_to 'Delete', @movie,
-                    class: 'button',
-                    method: :delete, data: { confirm: 'Are you sure?' } %>
       <% end %>
-    </nav>
-  </footer>
-</article>
+
+      <h5>
+        <%= @movie.rating %> &bull; <%= @movie.duration %>
+      </h5>
+
+      <p>
+        <span class="badge badge-pill badge-warning"><%= pluralize(@fans.size, "fan")%></span>
+      </p>
+
+      <% if current_user %>
+        <% if @current_favorite %>
+          <%= button_to "Unfave", movie_favorite_path(@movie, @current_favorite), method: :delete, class: "btn btn-danger btn-sm" %>
+        <% else %>
+          <%= button_to "Fave", movie_favorites_path(@movie), class: "btn btn-success btn-sm" %>
+        <% end %>
+      <% end %>
+
+      <% content_for(:side) do %>
+        <% if @fans.any? %>
+          <div class="card mt-3">
+            <h6 class="card-header">Fans</h6>
+            <div class="card-body">
+              <ul class="list-unstyled">
+                <% @fans.each do |fan| %>
+                  <li>
+                    <%= link_to fan.name, fan %>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+      <hr>
+      <h4>Cast</h4>
+      <p>
+        <%= @movie.cast %>
+      </p>
+
+      <h4>Director</h4>
+      <p>
+        <%= @movie.director %>
+      </p>
+
+      <h4>Total Gross</h4>
+      <p>
+        <%= format_total_gross(@movie) %>
+      </p>
+
+      <h4>Average Review</h4>
+      <p>
+        <%= format_average_stars(@movie) %>
+      </p>
+      <p>
+        <%= link_to pluralize(@movie.reviews.size, "Review"), movie_reviews_path(@movie) %>
+      </p>
+      <footer>
+        <%= link_to "Write Review", new_movie_review_path(@movie), class: "btn btn-success" %>
+        <nav>
+          <% if current_user_admin? %>
+            <hr>
+            <%= link_to 'Edit', edit_movie_path(@movie), class: 'btn btn-outline-primary btn-sm' %>
+            <%= link_to 'Delete', @movie,
+                        class: 'btn btn-outline-danger btn-sm',
+                        method: :delete, data: { confirm: 'Are you sure?' } %>
+          <% end %>
+        </nav>
+      </footer>
+    </article>
+  </div>
+</div>

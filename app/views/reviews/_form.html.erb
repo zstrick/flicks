@@ -1,23 +1,22 @@
 <%= form_for([@movie, @review]) do |f| %>
   <%= render "shared/errors", object: @review %>
-  <fieldset>
-    <ol>
-      <li class="required stars">
-        <%= f.label :stars %>
-        <% Review::STARS.each do |star| %>
-          <span class="star">
-            <%= f.radio_button :stars, star %> <%= star %>
-          </span>
-        <% end %>
-      </li>
-      <li class="required">
-        <%= f.label :comment %>
-        <%= f.text_area :comment, cols: 80, placeholder: "What did you think?" %>
-      </li>
-    </ol>
-    <p>
-      <%= f.submit 'Post Review' %>
-      <%= link_to "Cancel", @movie, class: 'button' %>
-    </p>
-  </fieldset>
+
+  <legend class="col-form-label pt-0">Stars</legend>
+  <% Review::STARS.each do |star| %>
+    <div class="form-check form-check-inline">
+      <%= f.radio_button :stars, star, class: "form-check-input" %>
+      <%= f.label star, class: "form-check-label" %>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :comment %>
+    <%= f.text_area :comment, placeholder: "What did you think?", class: "form-control" %>
+  </div>
+
+  <p>
+    <%= f.submit 'Post Review', class: "btn btn-primary" %>
+    <%= link_to "Cancel", @movie %>
+  </p>
+
 <% end %>

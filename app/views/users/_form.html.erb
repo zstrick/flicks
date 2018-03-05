@@ -1,34 +1,30 @@
 <%= form_for(@user) do |f| %>
   <%= render 'shared/errors', object: @user %>
-  <fieldset>
-    <ol id="user">
-      <li class="required">
-        <%= f.label :name %>
-        <%= f.text_field :name, size: 40, autofocus: true %>
-      </li>
-      <li class="required">
-        <%= f.label :username %>
-        <%= f.text_field :username, size: 40, placeholder: "Alphanumeric characters only!" %>
-      </li>
-      <li class="required">
-        <%= f.label :email %>
-        <%= f.email_field :email, size: 40 %>
-      </li>
-      <li class="required">
-        <%= f.label :password %>
-        <%= f.password_field :password, size: 40 %>
-      </li>
-      <li class="required">
-        <%= f.label :password_confirmation, "Confirm Password" %>
-        <%= f.password_field :password_confirmation, size: 40 %>
-      </li>
-    </ol>
-    <p>
-      <% if @user.new_record? %>
-        <%= f.submit "Create Account" %>
-      <% else %>
-        <%= f.submit "Update Account" %>
-      <% end %>
-    </p>
-  </fieldset>
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, autofocus: true, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :username %>
+    <%= f.text_field :username, placeholder: "Alphanumeric characters only!", class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :email %>
+    <%= f.email_field :email, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :password %>
+    <%= f.password_field :password, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :password_confirmation, "Confirm Password" %>
+    <%= f.password_field :password_confirmation, class: "form-control" %>
+  </div>
+  <p>
+    <% if @user.new_record? %>
+      <%= f.submit "Create Account", class: "btn btn-primary" %>
+    <% else %>
+      <%= f.submit "Update Account", class: "btn btn-primary" %>
+    <% end %>
+  </p>
 <% end %>

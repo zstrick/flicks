@@ -2,16 +2,18 @@
   <h1>Reviews for <%= link_to @movie.title, @movie %></h1>
 </header>
 
-<ol id="reviews">
+<ol>
   <% @reviews.each do |review| %>
-    <li>
+    <li class="media">
       <%= profile_image_for(review.user, size: 35) %>
-      <span class="review"><%= pluralize(review.stars, "star") %></span>
-      <span class="user"> by <%= link_to review.user.name, review.user %></span>
-      <span class="date">(<%= time_ago_in_words(review.created_at) %> ago)</span>
-      <p>
-        &quot;<%= review.comment %>&quot;
-      </p>
+      <div class="media-body">
+        <span><%= pluralize(review.stars, "star") %></span>
+        <span> by <%= link_to review.user.name, review.user %></span>
+        <span class="text-muted font-italic">(<%= time_ago_in_words(review.created_at) %> ago)</span>
+        <p>
+          &quot;<%= review.comment %>&quot;
+        </p>
+      </div>
     </li>
   <% end %>
 </ol>
