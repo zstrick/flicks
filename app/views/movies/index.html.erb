@@ -1,38 +1,42 @@
-<% if @movies.any? %>
-  <% @movies.each do |movie| %>
-    <article class="card w-75 mb-5">
-      <h2 class="card-header"><%= link_to movie.title, movie %> (<%= movie.released_on.year %>)</h2>
-      <div class="card-body">
-        <header>
-          <%= image_for(movie) %>
-        </header>
-        <p class="card-text">
-          <h5 class="card-subtitle mb-2 text-muted"><%= movie.cast %></h5>
-          <%= truncate(movie.description, length: 150, separator: ' ') %>
-        </p>
-        <table class="table table-sm">
-          <tr>
-            <th>Rating</th>
-            <td><%= movie.rating %></td>
-          </tr>
-          <tr>
-            <th>Duration</th>
-            <td><%= movie.duration %></td>
-          </tr>
-          <tr>
-            <th>Total Gross</th>
-            <td><%= format_total_gross(movie) %></td>
-          </tr>
-          <tr>
-            <th>Average Stars</th>
-            <td><%= format_average_stars(movie) %></td>
-          </tr>
-        </table>
-        <footer>
-        </footer>
-      </div>
-    </article>
-  <% end %>
-<% else %>
-  <h1>No movies 😞</h1>
-<% end %>
+<div class="row">
+  <div class="col-md-12">
+    <% if @movies.any? %>
+      <% @movies.each do |movie| %>
+        <article class="card mb-5">
+          <h2 class="card-header"><%= link_to movie.title, movie %> (<%= movie.released_on.year %>)</h2>
+          <div class="card-body">
+            <header>
+              <%= image_for(movie) %>
+            </header>
+            <p class="card-text">
+              <h5 class="card-subtitle mb-2 text-muted"><%= movie.cast %></h5>
+              <%= truncate(movie.description, length: 150, separator: ' ') %>
+            </p>
+            <table class="table table-sm">
+              <tr>
+                <th>Rating</th>
+                <td><%= movie.rating %></td>
+              </tr>
+              <tr>
+                <th>Duration</th>
+                <td><%= movie.duration %></td>
+              </tr>
+              <tr>
+                <th>Total Gross</th>
+                <td><%= format_total_gross(movie) %></td>
+              </tr>
+              <tr>
+                <th>Average Stars</th>
+                <td><%= format_average_stars(movie) %></td>
+              </tr>
+            </table>
+            <footer>
+            </footer>
+          </div>
+        </article>
+      <% end %>
+    <% else %>
+      <h1>No movies 😞</h1>
+    <% end %>
+  </div>
+</div>
