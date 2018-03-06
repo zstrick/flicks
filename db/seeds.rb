@@ -105,7 +105,7 @@ Movie.create!([
 ])
 
 genre_names = ["Action", "Comedy", "Drama", "Romance", "Thriller", "Fantasy", "Documentary", "Adventure", "Animation", "Sci-Fi"]
-genre_names.each do { |name| Genre.create!(name: name) }
+genre_names.each { |name| Genre.create!(name: name) }
 
 roger = User.create!(name: "Roger", username: "roger123", email: "roger@example.com", password: "password", password_confirmation: "password")
 gene = User.create!(name: "Gene", username: "gene123", email: "gene@example.com", password: "password", password_confirmation: "password")
