@@ -1,9 +1,9 @@
 module ApplicationHelper
   def page_title
     if content_for?(:title)
-      "Flix - #{content_for(:title)}"
+      "Flicks - #{content_for(:title)}"
     else
-      "Flix"
+      "Flicks"
     end
   end
 end
