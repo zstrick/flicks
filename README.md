@@ -1,4 +1,4 @@
-# Flix
+# Flicks
 
 This a simple movie review app written in Rails 5.
 
